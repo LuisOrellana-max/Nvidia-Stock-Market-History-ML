@@ -17,13 +17,13 @@ def create_market_features(df: pd.DataFrame) -> pd.DataFrame:
     # Feature 2: Volatility
     data['Volatility_5'] = data['Returns'].rolling(window=5).std()
     # Feature 3: Volume Change
-    data['Volume Change'] = data['Volume'].pct_change()
+    data['Volume_Change'] = data['Volume'].pct_change()
 
     # Basic Price Feature
-    data['High-low-range'] = data['High'] - data['Low']
-    data['Price-Change'] = data['Adj Close'] - data['Open']
-    data['Open-Close-ratio'] = data['Adj Close'] / data['Open']
-    data['High-Low-ratio'] = data['High'] / data['Low']
+    data['High_Low_Range'] = data['High'] - data['Low']
+    data['Price_Change'] = data['Adj Close'] - data['Open']
+    data['Open_Close_Ratio'] = data['Adj Close'] / data['Open']
+    data['High_Low_Ratio'] = data['High'] / data['Low']
 
     # lag feature
     data['lag_1'] = data['Adj Close'].shift(1)
