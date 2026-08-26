@@ -3,6 +3,7 @@ import joblib
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
+from fastapi.responses import RedirectResponse 
 from typing import List
 from contextlib import asynccontextmanager
 
@@ -36,6 +37,11 @@ async def lifespan(app: FastAPI):
     print("Cleaning up resources...")
 
 app = FastAPI(lifespan=lifespan)
+
+@app.get("/", include_in_schema=False)
+async def root_to_docs():
+    """Redirects root URL requests straight to the interactive Swagger UI."""
+    return RedirectResponse(url="/docs")
 
 class StockFeatures(BaseModel):
     # Raw features required by scaler
